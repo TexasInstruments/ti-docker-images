@@ -1,0 +1,63 @@
+name: Docker Image CI
+
+on:
+  push:
+    # Publish `main` as Docker `latest` image.
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  # Push image to GitHub Packages.
+  push:
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Multi-arch
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu binfmt-support qemu-user-static
+          docker pull multiarch/qemu-user-static
+          docker run --rm --privileged multiarch/qemu-user-static  --reset -p yes
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Distributions
+        run: |
+            for distro in $(ls -d *-*)
+            do
+                docker build "$distro" --tag "$distro"
+            done
+
+      - name: Push image to GitHub Container Registry
+        run: |
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "main" ] && VERSION=latest
+          # Push apps
+          for IMAGE_NAME in $(ls -d *-*)
+          do
+            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+            # Change all uppercase to lowercase
+            IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+            echo IMAGE_ID=$IMAGE_ID
+            echo VERSION=$VERSION
+            docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+            docker push $IMAGE_ID:$VERSION
+          done
