@@ -4,7 +4,7 @@ FROM amd64/ubuntu:22.04
 # Installing packages needed for Yocto & SDK Makefile builds
 RUN export DEBIAN_FRONTEND=noninteractive; apt-get update && \
          apt-get install -y --no-install-recommends file autoconf automake \
-         bison flex libssl-dev bc u-boot-tools swig wget device-tree-compiler python3-dev dosfstools fdisk sudo && \
+         bison flex libssl-dev bc u-boot-tools swig wget device-tree-compiler python3 python3-pip python3-dev dosfstools fdisk sudo && \
          pip3 install jsonschema pyelftools PyYAML Mako && \
          
          apt-get install -y gawk git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect \
