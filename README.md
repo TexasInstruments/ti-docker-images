@@ -3,6 +3,20 @@
 This repository provides a ubuntu 22.04 based docker image with all the packages that are required for Yocto Builds. 
 The docker image can also be used to Install & Build via Top Level Makefile from sources for [TI Arm based microprocessors](https://www.ti.com/microcontrollers-mcus-processors/arm-based-processors/products.html)
 
+## Pre-Requisites
+
+First you need to install and setup [docker](https://www.docker.com/). Docker is a software container platform that you need to install on the build host. Depending on your build host, you might have to install different software to support Docker containers. Go to the Docker installation page and read about the platform requirements in [Supported Platforms](https://docs.docker.com/engine/install/#supported-platforms) your build host needs to run containers.
+
+- [Linux Instructions](https://docs.docker.com/engine/install/)
+  - [Install Docker Engine for Ubuntu](https://docs.docker.com/engine/install/ubuntu/) for Linux build hosts running the Ubuntu distribution.
+  - [Install Docker Engine on CentOS](https://docs.docker.com/engine/install/centos/) for Linux build hosts running the CentOS distribution.
+- [Mac Instructions](https://github.com/crops/docker-win-mac-docs/wiki/Mac-Instructions)
+- [Windows Instructions](https://github.com/crops/docker-win-mac-docs/wiki/Windows-Instructions-%28Docker-Toolbox%29)
+
+If you are unfamiliar with Docker and the container concept, you can learn more here - https://docs.docker.com/get-started/.
+
+Once you have the setup ready, you should be able to launch Docker or the Docker Toolbox and have a terminal shell on your development host.
+
 ## Steps to Run Yocto builds inside Container
 
 ### 1. Pulls the Docker Image & Starts a Container
