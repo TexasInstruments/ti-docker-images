@@ -19,7 +19,7 @@ Once you have the setup ready, you should be able to launch Docker or the Docker
 
 ## Steps to Run Yocto builds inside Container
 
-### 1. Pulls the Docker Image & Starts a Container
+### 1. Pull the Docker Image & Start a Container
 
 ```sh
 # On Host
@@ -35,7 +35,6 @@ tisdk@9b297a000db9:~$ pwd
 > #### 📝 If working behind a proxy, ensure [to setup the network proxy](https://wiki.yoctoproject.org/wiki/Working_Behind_a_Network_Proxy)
 
 ### 2. Start Yocto Build
-
 
 ```sh
 tisdk@9b297a000db9:~$ pwd
@@ -59,3 +58,50 @@ tisdk@9b297a000db9:~$ MACHINE=am62xx-evm bitbake -k tisdk-default-image
 Refer [Build Options under Processor SDK Build Reference](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Overview_Building_the_SDK.html#build-options) for machine & target options.
 
 Your `target` wic image will be generated in deploy-ti directory. Refer [Create SD Card](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Overview/Processor_SDK_Linux_create_SD_card.html) to flash this image on the SD-Card.
+
+
+## Steps to Run SDK Installer inside Container
+
+Under PROCESSOR-SDK-LINUX, TI provides Linux Installer for sources, pre-built binaries and file system images generated using Yocto build environment (Eg : [PROCESSOR-SDK-LINUX-AM62X](https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-AM62X))
+
+### 1. Pull the Docker Image & Start a Container
+
+```sh
+# On Host
+host# export WORK_DIR=<path-on-your-host-where-you-want-install-the-installer>
+host# docker run --privileged -it -v ${WORK_DIR}:/home/tisdk -v /dev:/dev -v /media/:/media/ -w /home/tisdk ghcr.io/cshilwant/ubuntu-distro:latest
+ 
+# Inside Container Now
+tisdk@9b297a000db9~$ 
+tisdk@9b297a000db9:~$ pwd
+/home/tisdk
+```
+
+> #### 📝 If working behind a proxy, ensure [to setup the network proxy](https://wiki.yoctoproject.org/wiki/Working_Behind_a_Network_Proxy)
+
+### 2. Download & Install the SDK Installer
+
+```sh
+tisdk@9b297a000db9:~$ pwd
+/home/tisdk
+
+# Download & Install SDK Installer 
+tisdk@9b297a000db9:~$ wget <link-to-sdk-installer-from-ti.com>
+tisdk@9b297a000db9:~$ chmod +x ti-processor-sdk-linux-<machine>-<version>-Linux-x86-Install.bin
+tisdk@9b297a000db9:~$ ./ti-processor-sdk-linux-<machine>-<version>-Linux-x86-Install.bin --prefix . --mode unattended 
+ 
+# Eg: To Download & Install AM62x 9.1 SDK Installer 
+tisdk@9b297a000db9:~$ wget https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-PvdSyIiioq/09.01.00.08/ti-processor-sdk-linux-am62xx-evm-09.01.00.08-Linux-x86-Install.bin
+tisdk@9b297a000db9:~$ chmod +x ti-processor-sdk-linux-am62xx-evm-09.01.00.08-Linux-x86-Install.bin
+tisdk@9b297a000db9:~$ ./ti-processor-sdk-linux-am62xx-evm-09.01.00.08-Linux-x86-Install.bin --prefix . --mode unattended 
+```
+
+After the installation is complete, you can now tryout various SDK features such as,
+- [SD card creation scripts](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Overview/Processor_SDK_Linux_create_SD_card.html#create-sd-card-with-default-images-using-script)
+- [A Top level makefile for common build targets (u-boot, kernel, jailhouse, etc.)](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Overview/Top_Level_Makefile.html)
+- [Terminal emulation setup using minicom](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/devices/AM62X/linux/Overview/Run_Setup_Scripts.html)
+- [Flash via USB Device Firmware Upgrade (DFU)](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Foundational_Components/Tools/Flash_via_DFU.html)
+- [Building TI Apps Launcher using TI SDK Installer](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/system/Demo_User_Guides/TI_Apps_Launcher_User_Guide.html#building-the-ti-apps-launcher)
+- [Building Jailhouse using TI SDK Installer](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Foundational_Components/Hypervisor/Jailhouse.html?#building-jailhouse-using-ti-sdk-installer)
+- [TFTP setup for loading kernels from the host](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/devices/AM62X/linux/Overview/Run_Setup_Scripts.html)
+- [NFS filesystem on the host](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/devices/AM62X/linux/Overview/Run_Setup_Scripts.html)
