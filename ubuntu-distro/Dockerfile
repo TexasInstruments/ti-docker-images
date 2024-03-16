@@ -20,6 +20,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; echo "dash dash/sh boolean false" | d
          adduser --disabled-password --uid 786 --gid 786 --gecos "" --home /home/tisdk --shell /bin/bash tisdk && \
          # Add tisdk to sudoers & make it passwordless
          adduser tisdk sudo && usermod -aG sudo tisdk && echo "tisdk ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+         sudo chown -R tisdk /home/tisdk && \
          export LC_ALL="en_US.UTF-8" && export LC_CTYPE="en_US.UTF-8" && export LC_NUMERIC="en_US.UTF-8"
 
 # Set default user as tisdk         
