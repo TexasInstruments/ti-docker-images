@@ -24,7 +24,7 @@ Once you have the setup ready, you should be able to launch Docker or the Docker
 ```sh
 # On Host
 host# export WORK_DIR=<path-to-your-host-where-you-want-to-start-yocto-build>
-host# docker run --privileged -it -v ${WORK_DIR}:/home/tisdk -v /dev:/dev -v /media/:/media/ -w /home/tisdk ghcr.io/cshilwant/ubuntu-distro:latest
+host# docker run --privileged -it -v ${WORK_DIR}:/home/tisdk -v /dev:/dev -v /media/:/media/ -w /home/tisdk ghcr.io/texasinstruments/ubuntu-distro:latest
  
 # Inside Container Now
 tisdk@9b297a000db9~$ 
@@ -69,7 +69,7 @@ Under PROCESSOR-SDK-LINUX, TI provides Linux Installer for sources, pre-built bi
 ```sh
 # On Host
 host# export WORK_DIR=<path-on-your-host-where-you-want-install-the-installer>
-host# docker run --privileged -it -v ${WORK_DIR}:/home/tisdk -v /dev:/dev -v /media/:/media/ -w /home/tisdk ghcr.io/cshilwant/ubuntu-distro:latest
+host# docker run --privileged -it -v ${WORK_DIR}:/home/tisdk -v /dev:/dev -v /media/:/media/ -w /home/tisdk ghcr.io/texasinstruments/ubuntu-distro:latest
  
 # Inside Container Now
 tisdk@9b297a000db9~$ 
