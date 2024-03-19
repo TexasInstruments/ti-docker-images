@@ -39,6 +39,9 @@ tisdk@9b297a000db9:~$ pwd
 ```sh
 tisdk@9b297a000db9:~$ pwd
 /home/tisdk
+
+# Provide necessary permissions to write in /home/tisdk to user tisdk
+tisdk@9b297a000db9:~$ sudo chown -R tisdk /home/tisdk
  
 # Clone oe-layersetup
 tisdk@9b297a000db9:~$ git clone https://git.ti.com/git/arago-project/oe-layersetup.git tisdk
@@ -84,6 +87,9 @@ tisdk@9b297a000db9:~$ pwd
 ```sh
 tisdk@9b297a000db9:~$ pwd
 /home/tisdk
+
+# Provide necessary permissions to write in /home/tisdk to user tisdk
+tisdk@9b297a000db9:~$ sudo chown -R tisdk /home/tisdk
 
 # Download & Install SDK Installer 
 tisdk@9b297a000db9:~$ wget <link-to-sdk-installer-from-ti.com>
