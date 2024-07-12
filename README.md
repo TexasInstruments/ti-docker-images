@@ -17,7 +17,7 @@ If you are unfamiliar with Docker and the container concept, you can learn more 
 
 Once you have the setup ready, you should be able to launch Docker or the Docker Toolbox and have a terminal shell on your development host.
 
-## Steps to Run Yocto Kirkstone based builds inside a Container
+## Steps to Run Yocto Scarthgap based builds inside a Container
 
 ### 1. Pull the Docker Image & Start a Container
 
@@ -34,7 +34,7 @@ tisdk@9b297a000db9:~$ pwd
 
 > #### 📝 If working behind a proxy, ensure [to setup the network proxy](https://wiki.yoctoproject.org/wiki/Working_Behind_a_Network_Proxy)
 
-### 2. Start Yocto Kirkstone based build
+### 2. Start Yocto Scarthgap based build
 
 ```sh
 tisdk@9b297a000db9:~$ pwd
