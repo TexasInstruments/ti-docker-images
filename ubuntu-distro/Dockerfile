@@ -6,7 +6,6 @@ RUN export DEBIAN_FRONTEND=noninteractive; apt-get update && \
          apt-get install -y --no-install-recommends file autoconf automake iproute2 usbutils dialog dfu-util \
          bison flex libssl-dev bc u-boot-tools swig wget device-tree-compiler python3 python3-pip python3-dev dosfstools fdisk sudo && \
          pip3 install jsonschema pyelftools PyYAML Mako yamllint && \
-         
          apt-get install -y gawk git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect \
          xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev xterm pylint python3-subunit mesa-common-dev \
          zstd liblz4-tool file locales doxygen dos2unix bison flex libssl-dev u-boot-tools mono-devel mono-complete curl python3-distutils repo \
@@ -20,7 +19,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; echo "dash dash/sh boolean false" | d
          adduser --disabled-password --uid 786 --gid 786 --gecos "" --home /home/tisdk --shell /bin/bash tisdk && \
          # Add tisdk to sudoers & make it passwordless
          adduser tisdk sudo && usermod -aG sudo tisdk && echo "tisdk ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-         sudo chown -R tisdk /home/tisdk && \
+         chown -R tisdk /home/tisdk && \
          export LC_ALL="en_US.UTF-8" && export LC_CTYPE="en_US.UTF-8" && export LC_NUMERIC="en_US.UTF-8"
 
 # Set default user as tisdk         
