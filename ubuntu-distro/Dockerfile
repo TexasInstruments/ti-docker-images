@@ -10,7 +10,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; apt-get update && \
          xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev xterm pylint python3-subunit mesa-common-dev \
          zstd liblz4-tool file locales doxygen dos2unix bison flex libssl-dev u-boot-tools mono-devel mono-complete curl python3-distutils repo \
          pseudo python3-sphinx g++-multilib libc6-dev-i386 jq git-lfs pigz liblz4-tool lz4 net-tools zip corkscrew rsync \
-         iputils-ping locales libacl1 apt-utils nano && locale-gen en_US en_US.UTF-8 && rm -rf /var/lib/apt/lists/*
+         iputils-ping locales libacl1 apt-utils nano libgnutls28-dev && locale-gen en_US en_US.UTF-8 && rm -rf /var/lib/apt/lists/*
 
 # Set locale's and reconfigure to use bash as the default shell for /bin/sh.
 RUN export DEBIAN_FRONTEND=noninteractive; echo "dash dash/sh boolean false" | debconf-set-selections && \
