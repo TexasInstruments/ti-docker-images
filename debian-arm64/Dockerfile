@@ -1,5 +1,5 @@
-# Using debian:trixie-slim as the base image
-FROM arm64v8/debian:trixie-slim
+# Using debian:trixie as the base image
+FROM arm64v8/debian:trixie
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update ; apt-get -y install net-tools git wget vim sudo zip corkscrew rsync iputils-ping locales apt-utils gpg tzdata devscripts equivs debmake
 RUN locale-gen en_US en_US.UTF-8

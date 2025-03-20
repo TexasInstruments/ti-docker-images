@@ -37,10 +37,8 @@ jobs:
 
       - name: Build Distributions
         run: |
-            for distro in $(ls -d *-*)
-            do
-                docker build "$distro" --tag "$distro"
-            done
+          docker build --platform=linux/arm64 debian-arm64 --tag debian-arm64
+          docker build ubuntu-distro --tag ubuntu-distro
 
       - name: Push image to GitHub Container Registry
         run: |
